@@ -26,7 +26,32 @@ namespace BitOperationsTask
         /// </example>
         public static int InsertNumberIntoAnother(int destinationNumber, int sourceNumber, int i, int j)
         {
-            throw new NotImplementedException("You need to implement this function.");
+            if (i < 0 || j < 0 || i > 31 || j > 31)
+            {
+                throw new ArgumentOutOfRangeException(nameof(i), "uncorrect value of i or j");
+            }
+
+            if (i > j)
+            {
+                throw new ArgumentException("i is more than j.");
+            }
+
+            int k = 0;
+            for (; i < j + 1; i++)
+            {
+                if ((sourceNumber >> k & 1) == 1)
+                {
+                    destinationNumber = destinationNumber | (1 << i);
+                }
+                else
+                {
+                    destinationNumber = destinationNumber & ~(1 << i);
+                }
+
+                k++;
+            }
+
+            return destinationNumber;
         }
     }
 }
